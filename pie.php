@@ -23,158 +23,190 @@ print('<pre>');
 $total = 0;
 for ($i=0; $i < count ($r); $i++) {
   $row = $r[$i];
-  print($row['description'] . ',' . $row['sum'] . '\n');
   $total += $row['sum'];
 }
 
-print('Total: ' . $total);
+?>
 
-exit;
-
-$tot = 0;
-for ($i = 0; $i<count($r); $i++) {
-  $o = $r[$i];
-  //echo "$o[source] issued $o[amount] $o[currency] to $o[destination] at $o[created]<br/>";
-  //print_r($o);
-  //echo "<br/>";
-  $arr[$o['day']][$o['hour']] = $o['total'];
-  $tot += intval($o['amount']);
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  width: 960px;
+  height: 500px;
+  position: relative;
+}
+path.slice{
+	stroke-width:2px;
+}
+polyline{
+	opacity: .3;
+	stroke: black;
+	stroke-width: 2px;
+	fill: none;
+}
+svg text.percent{
+	fill:white;
+	text-anchor:middle;
+	font-size:12px;
 }
 
-$today = Database::getInstance()->select("select sum(amount) total from webcredits where destination = '$destination' and currency = '$currency' and DATE(NOW()) = DATE(created)");
-$today = $today[0]['total'] / 10.0;
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html lang="en">
-  <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
-  <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">
-  <link href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" rel="stylesheet">
-  <link href="libnotify.css" rel="stylesheet">
-  <link href="todo.css" rel="stylesheet">
-  <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
-  <script src="http://code.jquery.com/jquery-1.8.2.js" type="text/javascript"></script>
-  <script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js" type="text/javascript"></script>
-  <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap.min.js" type="text/javascript"></script>
+</style>
+<body>
+<button onClick="changeData()">Change Data</button>
 
-  <title>Dot Chart</title>
-  <script src="raphael.js" type="text/javascript" charset="utf-8"></script>
-  <script src="dots.js" type="text/javascript" charset="utf-8"></script>
-  <link rel="stylesheet" href="demo.css" type="text/css" media="screen">
-  <link rel="stylesheet" href="demo-print.css" type="text/css" media="print">
-  <style type="text/css" media="screen">
-    body {
-      margin: 0;
-    }
-    #chart {
-      color: #333;
-      left: 50%;
-      margin: -150px 0 0 -400px;
-      position: absolute;
-      top: 50%;
-      width: 300px;
-      width: 800px;
-    }
-  </style>
-  </head>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="Donut3D.js"></script>
+<script>
+!function(){
+	var Donut3D={};
 
-    <body>
-  <div class="navbar-wrapper">
-  <!-- Wrap the .navbar in .container to center it within the absolutely positioned parent. -->
-    <div class="container">
+	function pieTop(d, rx, ry, ir ){
+		if(d.endAngle - d.startAngle == 0 ) return "M 0 0";
+		var sx = rx*Math.cos(d.startAngle),
+			sy = ry*Math.sin(d.startAngle),
+			ex = rx*Math.cos(d.endAngle),
+			ey = ry*Math.sin(d.endAngle);
 
-      <div class="navbar navbar-inverse">
+		var ret =[];
+		ret.push("M",sx,sy,"A",rx,ry,"0",(d.endAngle-d.startAngle > Math.PI? 1: 0),"1",ex,ey,"L",ir*ex,ir*ey);
+		ret.push("A",ir*rx,ir*ry,"0",(d.endAngle-d.startAngle > Math.PI? 1: 0), "0",ir*sx,ir*sy,"z");
+		return ret.join(" ");
+	}
 
-        <div class="navbar-inner">
-          <a style="font-family: Arial; font-style:italic; color:#0088CC" class="brand" href="/">Taski<b>f</b>y <sup>&alpha;</sup></a> &nbsp;
-          <ul class="nav">
-            <li id="about"><a href="/">Back</a></li>
-          </ul>
-          <ul class="nav pull-right">
-            <li class="dropdown">
-              <a id="user" target="_blank" href="#">Burndown Chart For: <?php echo $destination ?></b></a>
-            </li>
+	function pieOuter(d, rx, ry, h ){
+		var startAngle = (d.startAngle > Math.PI ? Math.PI : d.startAngle);
+		var endAngle = (d.endAngle > Math.PI ? Math.PI : d.endAngle);
 
-          </ul>
-          <form class="form-inline pull-left" id="newtagform">
-<!--
-          <div class="btn-group input-append">
-            <input id="newtag" class="input-medium" size="32" type="text"><button class="btn btn-primary btn-mini"><i class="icon-plus-sign icon-white"></i><i class="icon-tag icon-white"></i></button>
-          </div>
--->
-          </form>
-          <div id="tags" class="btn-group pull-left">
+		var sx = rx*Math.cos(startAngle),
+			sy = ry*Math.sin(startAngle),
+			ex = rx*Math.cos(endAngle),
+			ey = ry*Math.sin(endAngle);
 
-          </div>
-<!--
-          <div class="btn-group pull-right">
-            <button type="button" id="ui-focus" class="btn btn-success">Focus</button>
-          </div>
--->
-        </div>
-      </div>
+			var ret =[];
+			ret.push("M",sx,h+sy,"A",rx,ry,"0 0 1",ex,h+ey,"L",ex,ey,"A",rx,ry,"0 0 0",sx,sy,"z");
+			return ret.join(" ");
+	}
 
-    </div>
-  </div>
+	function pieInner(d, rx, ry, h, ir ){
+		var startAngle = (d.startAngle < Math.PI ? Math.PI : d.startAngle);
+		var endAngle = (d.endAngle < Math.PI ? Math.PI : d.endAngle);
 
-        <table id="for-chart">
-            <tfoot>
-                <tr>
-                    <td>&nbsp;</td>
-                    <th>12am</th>
-                    <th>1</th>
-                    <th>2</th>
-                    <th>3</th>
-                    <th>4</th>
-                    <th>5</th>
-                    <th>6</th>
-                    <th>7</th>
-                    <th>8</th>
-                    <th>9</th>
-                    <th>10</th>
-                    <th>11</th>
-                    <th>12pm</th>
-                    <th>1</th>
-                    <th>2</th>
-                    <th>3</th>
-                    <th>4</th>
-                    <th>5</th>
-                    <th>6</th>
-                    <th>7</th>
-                    <th>8</th>
-                    <th>9</th>
-                    <th>10</th>
-                    <th>11</th>
-                </tr>
-            </tfoot>
-            <tbody>
-                <tr>
+		var sx = ir*rx*Math.cos(startAngle),
+			sy = ir*ry*Math.sin(startAngle),
+			ex = ir*rx*Math.cos(endAngle),
+			ey = ir*ry*Math.sin(endAngle);
 
+			var ret =[];
+			ret.push("M",sx, sy,"A",ir*rx,ir*ry,"0 0 1",ex,ey, "L",ex,h+ey,"A",ir*rx, ir*ry,"0 0 0",sx,h+sy,"z");
+			return ret.join(" ");
+	}
+
+	function getPercent(d){
+		return (d.endAngle-d.startAngle > 0.2 ?
+				Math.round(1000*(d.endAngle-d.startAngle)/(Math.PI*2))/10+'%' : '');
+	}
+
+	Donut3D.transition = function(id, data, rx, ry, h, ir){
+		function arcTweenInner(a) {
+		  var i = d3.interpolate(this._current, a);
+		  this._current = i(0);
+		  return function(t) { return pieInner(i(t), rx+0.5, ry+0.5, h, ir);  };
+		}
+		function arcTweenTop(a) {
+		  var i = d3.interpolate(this._current, a);
+		  this._current = i(0);
+		  return function(t) { return pieTop(i(t), rx, ry, ir);  };
+		}
+		function arcTweenOuter(a) {
+		  var i = d3.interpolate(this._current, a);
+		  this._current = i(0);
+		  return function(t) { return pieOuter(i(t), rx-.5, ry-.5, h);  };
+		}
+		function textTweenX(a) {
+		  var i = d3.interpolate(this._current, a);
+		  this._current = i(0);
+		  return function(t) { return 0.6*rx*Math.cos(0.5*(i(t).startAngle+i(t).endAngle));  };
+		}
+		function textTweenY(a) {
+		  var i = d3.interpolate(this._current, a);
+		  this._current = i(0);
+		  return function(t) { return 0.6*rx*Math.sin(0.5*(i(t).startAngle+i(t).endAngle));  };
+		}
+
+		var _data = d3.layout.pie().sort(null).value(function(d) {return d.value;})(data);
+
+		d3.select("#"+id).selectAll(".innerSlice").data(_data)
+			.transition().duration(750).attrTween("d", arcTweenInner);
+
+		d3.select("#"+id).selectAll(".topSlice").data(_data)
+			.transition().duration(750).attrTween("d", arcTweenTop);
+
+		d3.select("#"+id).selectAll(".outerSlice").data(_data)
+			.transition().duration(750).attrTween("d", arcTweenOuter);
+
+		d3.select("#"+id).selectAll(".percent").data(_data).transition().duration(750)
+			.attrTween("x",textTweenX).attrTween("y",textTweenY).text(getPercent);
+	}
+
+	Donut3D.draw=function(id, data, x /*center x*/, y/*center y*/,
+			rx/*radius x*/, ry/*radius y*/, h/*height*/, ir/*inner radius*/){
+
+		var _data = d3.layout.pie().sort(null).value(function(d) {return d.value;})(data);
+
+		var slices = d3.select("#"+id).append("g").attr("transform", "translate(" + x + "," + y + ")")
+			.attr("class", "slices");
+
+		slices.selectAll(".innerSlice").data(_data).enter().append("path").attr("class", "innerSlice")
+			.style("fill", function(d) { return d3.hsl(d.data.color).darker(0.7); })
+			.attr("d",function(d){ return pieInner(d, rx+0.5,ry+0.5, h, ir);})
+			.each(function(d){this._current=d;});
+
+		slices.selectAll(".topSlice").data(_data).enter().append("path").attr("class", "topSlice")
+			.style("fill", function(d) { return d.data.color; })
+			.style("stroke", function(d) { return d.data.color; })
+			.attr("d",function(d){ return pieTop(d, rx, ry, ir);})
+			.each(function(d){this._current=d;});
+
+		slices.selectAll(".outerSlice").data(_data).enter().append("path").attr("class", "outerSlice")
+			.style("fill", function(d) { return d3.hsl(d.data.color).darker(0.7); })
+			.attr("d",function(d){ return pieOuter(d, rx-.5,ry-.5, h);})
+			.each(function(d){this._current=d;});
+
+		slices.selectAll(".percent").data(_data).enter().append("text").attr("class", "percent")
+			.attr("x",function(d){ return 0.6*rx*Math.cos(0.5*(d.startAngle+d.endAngle));})
+			.attr("y",function(d){ return 0.6*ry*Math.sin(0.5*(d.startAngle+d.endAngle));})
+			.text(getPercent).each(function(d){this._current=d;});
+	}
+
+	this.Donut3D = Donut3D;
+}();
+
+
+var salesData=[
 <?php
-$week = 0;
-$days = array(0, 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat');
-for ($day = 1; $day<8; $day++) {
-  echo '</tr><tr>';
-  $tot = 0;
-  $str = '';
-  for ($i=0; $i<24; $i++) {
-    $str .= "<td>" . $arr[$day][$i] / 10 . "</td>";
-    $tot += $arr[$day][$i] / 10;
+  for ($i=0; $i < count ($r); $i++) {
+    $row = $r[$i];
+    $total += $row['sum'];
+    print("{ label : '$row[description]', color: '#3366CC', value : $row[sum] },\n");
   }
-  echo '<th title="'.$tot.'" scope="row">'.$days[$day].'</th>';
-  echo $str;
-  $week += $tot;
-}
 ?>
 
-                </tr>
-            </tbody>
-        </table>
-        <div id="chart"></div>
-        <p id="copy">Credits received by day and hour. Weekly : <?php echo $week  . ' Daily: ' . $today ?></p>
-    </body>
-</html>
+	{label:"hotkey", color:"#3366CC", value: 65},
+	{label:"desktop", color:"#DC3912", value: 440},
+	{label:"Lite", color:"#FF9900", value: 0},
+	{label:"Elite", color:"#109618", value: 0},
+	{label:"Delux", color:"#990099", value: 0}
+];
+
+var svg = d3.select("body").append("svg").attr("width",700).attr("height",300);
+
+svg.append("g").attr("id","salesDonut");
+//svg.append("g").attr("id","quotesDonut");
+
+Donut3D.draw("salesDonut", salesData, 150, 150, 130, 100, 30, 0.4);
+//Donut3D.draw("quotesDonut", randomData(), 450, 150, 130, 100, 30, 0);
+
+</script>
+</body>
