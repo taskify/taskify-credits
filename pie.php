@@ -214,7 +214,7 @@ Donut3D.draw("salesDonut", salesData, 150, 150, 130, 100, 30, 0.4);
 print("<br>");
 for ($i=0; $i < count ($r); $i++) {
   $row = $r[$i];
-  print("<tr><td>$row[description]</td><td>$row[sum]</td></tr>");
+  print("<tr><td style='color: $colors[$i];'>$row[description]</td><td>$row[sum]</td></tr>");
 }
 print("<tr><td>total</td><td>$total</td></tr>");
 ?>
