@@ -13,10 +13,19 @@ $currency = $_REQUEST['currency'];
 $source = $_REQUEST['source'];
 $amount = $_REQUEST['amount'];
 $type = $_REQUEST['type'];
+$date = $_REQUEST['date'];
+$now = 'NOW()';
 
 if (!isset($type)) {
   $type = 'HOUR';
 }
+
+if (!isset($date)) {
+  $date = 'CURDATE()';
+} else {
+  $now = $date;
+}
+
 
 $currency = $currency ? $currency : 'https://taskify.org/points#';
 $source = $source ? $source : 'https://taskify.org/me#';
@@ -25,7 +34,7 @@ $destination = $destination ? $destination : 'https://melvincarvalho.com/#me';
 
 
 
-$r = Database::getInstance()->select("select sum(amount) sum, description from Credit where ${type}(timestamp) >= ${type}(NOW()) and DATE(timestamp) = CURDATE() and destination = '$destination' group by description order by sum desc;");
+$r = Database::getInstance()->select("select sum(amount) sum, description from Credit where ${type}(timestamp) >= ${type}($now) and DATE(timestamp) = $date and destination = '$destination' group by description order by sum desc;");
 
 $total = 0;
 for ($i=0; $i < count ($r); $i++) {
