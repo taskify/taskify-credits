@@ -19,11 +19,14 @@ $destination = $destination ? $destination : 'http://melvincarvalho.com/#me';
 
 $r = Database::getInstance()->select("select sum(amount) sum, description from Credit where timestamp >= DATE_SUB(NOW(),INTERVAL 1 HOUR) group by description;");
 
+$total = 0;
 for ($i=0; $i < count ($r); $i++) {
   $row = $r[$i];
-  print($row['description'] . ',' . $row['sum']);
+  print($row['description'] . ',' . $row['sum'] . '\n');
+  $total += $row['sum'];
 }
 
+print('Total: ' . $total);
 
 exit;
 
