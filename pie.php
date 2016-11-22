@@ -210,4 +210,12 @@ Donut3D.draw("salesDonut", salesData, 150, 150, 130, 100, 30, 0.4);
 //Donut3D.draw("quotesDonut", randomData(), 450, 150, 130, 100, 30, 0);
 
 </script>
+
+for ($i=0; $i < count ($r); $i++) {
+  $row = $r[$i];
+  $total += $row['sum'];
+  print("{ label : '$row[description]', value : $row[sum] }\n<br>");
+}
+
+
 </body>
