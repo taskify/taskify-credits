@@ -216,9 +216,9 @@ print("<br>");
 for ($i=0; $i < count ($r); $i++) {
   $row = $r[$i];
   $total += $row['sum'];
-  print("'$row[description]' : $row[sum] }\n<br>");
+  print("$row[description] : $row[sum] \n<br>");
 }
-print("total : $total <br>")
+print("<br>total : $total <br>")
 ?>
 
 </body>
