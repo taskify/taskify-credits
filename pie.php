@@ -54,7 +54,6 @@ svg text.percent{
 
 </style>
 <body>
-<button onClick="changeData()">Change Data</button>
 
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="Donut3D.js"></script>
@@ -192,12 +191,6 @@ var salesData=[
     print("{ label : '$row[description]', color: '#3366CC', value : $row[sum] },\n");
   }
 ?>
-
-	{label:"hotkey", color:"#3366CC", value: 65},
-	{label:"desktop", color:"#DC3912", value: 440},
-	{label:"Lite", color:"#FF9900", value: 0},
-	{label:"Elite", color:"#109618", value: 0},
-	{label:"Delux", color:"#990099", value: 0}
 ];
 
 var svg = d3.select("body").append("svg").attr("width",700).attr("height",300);
