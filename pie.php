@@ -212,10 +212,11 @@ Donut3D.draw("salesDonut", salesData, 150, 150, 130, 100, 30, 0.4);
 </script>
 
 <?php
+print("<br>")
 for ($i=0; $i < count ($r); $i++) {
   $row = $r[$i];
   $total += $row['sum'];
-  print("{ label : '$row[description]', value : $row[sum] }\n<br>");
+  print("'$row[description]' : $row[sum] }\n<br>");
 }
 ?>
 
