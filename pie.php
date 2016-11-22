@@ -21,7 +21,7 @@ $destination = $destination ? $destination : 'https://melvincarvalho.com/#me';
 
 
 
-$r = Database::getInstance()->select("select sum(amount) sum, description from Credit where $type(timestamp) >= $type(NOW()) and DATE(timestamp) = CURDATE() and destination = '$destination' group by description order by sum desc;");
+$r = Database::getInstance()->select("select sum(amount) sum, description from Credit where ${type}(timestamp) >= ${type}(NOW()) and DATE(timestamp) = CURDATE() and destination = '$destination' group by description order by sum desc;");
 
 $total = 0;
 for ($i=0; $i < count ($r); $i++) {
