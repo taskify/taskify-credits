@@ -194,7 +194,6 @@ var salesData=[
 
   for ($i=0; $i < count ($r); $i++) {
     $row = $r[$i];
-    $total += $row['sum'];
     print("{ label : '$row[description]', color: '$colors[$i]', value : $row[sum] },\n");
   }
 ?>
@@ -215,7 +214,6 @@ Donut3D.draw("salesDonut", salesData, 150, 150, 130, 100, 30, 0.4);
 print("<br>");
 for ($i=0; $i < count ($r); $i++) {
   $row = $r[$i];
-  $total += $row['sum'];
   print("$row[description] : $row[sum] \n<br>");
 }
 print("<br>total : $total <br>")
