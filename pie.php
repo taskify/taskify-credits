@@ -185,12 +185,21 @@ svg text.percent{
 
 var salesData=[
 <?php
+  $colors = array(
+      "#3366CC",
+      "#DC3912",
+      "#FF9900",
+      "#109618",
+      "#990099"
+  );
+
   for ($i=0; $i < count ($r); $i++) {
     $row = $r[$i];
     $total += $row['sum'];
-    print("{ label : '$row[description]', color: '#3366CC', value : $row[sum] },\n");
+    print("{ label : '$row[description]', color: '$colors[$i]', value : $row[sum] },\n");
   }
 ?>
+
 ];
 
 var svg = d3.select("body").append("svg").attr("width",700).attr("height",300);
