@@ -209,14 +209,14 @@ Donut3D.draw("salesDonut", salesData, 150, 150, 130, 100, 30, 0.4);
 //Donut3D.draw("quotesDonut", randomData(), 450, 150, 130, 100, 30, 0);
 
 </script>
-
+<table>
 <?php
 print("<br>");
 for ($i=0; $i < count ($r); $i++) {
   $row = $r[$i];
-  print("$row[description] : $row[sum] \n<br>");
+  print("<tr><td>$row[description]</td><td>$row[sum]</td></tr>");
 }
-print("<br>total : $total <br>")
+print("<tr><td>total</td><td>$total</td></tr>");
 ?>
-
+</table>
 </body>
