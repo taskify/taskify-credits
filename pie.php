@@ -19,7 +19,7 @@ $destination = $destination ? $destination : 'http://melvincarvalho.com/#me';
 
 $r = Database::getInstance()->select("select sum(amount) sum, description from Credit where timestamp >= DATE_SUB(NOW(),INTERVAL 1 HOUR) group by description;");
 
-for ($i=0; $i < length($r); $i++) {
+for ($i=0; $i < count($r); $i++) {
   $row = $r[$i];
   print_r($row);
 }
