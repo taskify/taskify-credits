@@ -12,7 +12,11 @@ $referrer = $_REQUEST['referrer'];
 $currency = $_REQUEST['currency'];
 $source = $_REQUEST['source'];
 $amount = $_REQUEST['amount'];
-$type = $_REQUEST['type'] || 'HOUR';
+$type = $_REQUEST['type'];
+
+if (!isset($type)) {
+  $type = 'HOUR';
+}
 
 $currency = $currency ? $currency : 'https://taskify.org/points#';
 $source = $source ? $source : 'https://taskify.org/me#';
