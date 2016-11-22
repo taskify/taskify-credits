@@ -23,7 +23,7 @@ if (!isset($type)) {
 if (!isset($date)) {
   $date = 'CURDATE()';
 } else {
-  $now = $date;
+  $now = "'$date'";
 }
 
 
