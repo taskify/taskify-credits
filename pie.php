@@ -17,7 +17,7 @@ $source = $source ? $source : 'https://taskify.org/me#';
 $amount = $amount ? $amount : 25;
 $destination = $destination ? $destination : 'http://melvincarvalho.com/#me';
 
-$r = Database::getInstance()->select("select sum(amount), description from Credit where HOUR(timestamp) >= HOUR(NOW()) and DATE(timestamp) = CURDATE() group by description order by sum desc;");
+$r = Database::getInstance()->select("select sum(amount) sum, description from Credit where HOUR(timestamp) >= HOUR(NOW()) and DATE(timestamp) = CURDATE() group by description order by sum desc;");
 
 $total = 0;
 for ($i=0; $i < count ($r); $i++) {
