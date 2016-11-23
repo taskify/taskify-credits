@@ -38,9 +38,9 @@ $source = $source ? $source : 'https://taskify.org/me#';
 $amount = $amount ? $amount : 25;
 $destination = $destination ? $destination : 'https://melvincarvalho.com/#me';
 
+$sql = "select sum(amount) sum, description from Credit where ${type}(timestamp) >= ${type}($now) and DATE(timestamp) = $date and destination = '$destination' group by description order by sum desc;";
 
-
-$r = Database::getInstance()->select("select sum(amount) sum, description from Credit where ${type}(timestamp) >= ${type}($now) and DATE(timestamp) = $date and destination = '$destination' group by description order by sum desc;");
+$r = Database::getInstance()->select($sql);
 
 $total = 0;
 for ($i=0; $i < count ($r); $i++) {
@@ -240,7 +240,7 @@ for ($i=0; $i < count ($r); $i++) {
   $row = $r[$i];
   print("<tr><td style='color: $colors[$i];'>$row[description]</td><td>$row[sum]</td></tr>");
 }
-print("<tr><td>total</td><td>$total</td></tr>");
+print("<tr><td title='<?php echo $sql ?>'>total</td><td>$total</td></tr>");
 ?>
 </table>
 </body>
