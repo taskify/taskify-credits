@@ -137,6 +137,9 @@ for ($day = 1; $day<8; $day++) {
   echo $str;
   $week += $tot;
 }
+
+print_4($r);
+
 ?>
 
                 </tr>
