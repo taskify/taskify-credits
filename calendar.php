@@ -136,7 +136,7 @@ for ($day = 1; $day<8; $day++) {
   $tot = 0;
   $str = '';
   for ($i=0; $i<24; $i++) {
-    $str .= "<td><a href='pie.php?hour=$i'>" . $arr[$day][$i] / 10 . "</a></td>";
+    $str .= "<td><a target='_blank' href='pie.php?hour=$i'>" . $arr[$day][$i] / 10 . "</a></td>";
     $tot += $arr[$day][$i] / 10;
   }
   echo '<th title="'.$tot.'" scope="row">'.$days[$day].'</th>';
