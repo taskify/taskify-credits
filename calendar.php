@@ -12,7 +12,7 @@ $currency = $_REQUEST['currency'];
 $source = $_REQUEST['source'];
 $amount = $_REQUEST['amount'];
 
-$currency = $currency ? $currency : 'https://taskify.org/points#';
+$currency = $currency ? $currency : 'https://w3id.org/cc#bit';
 $source = $source ? $source : 'https://taskify.org/me#';
 $amount = $amount ? $amount : 25;
 $destination = $destination ? $destination : 'http://melvincarvalho.com/#me';
