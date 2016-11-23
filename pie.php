@@ -242,6 +242,8 @@ for ($i=0; $i < count ($r); $i++) {
 }
 print("<tr><td title='total'>total</td><td>$total</td></tr>");
 ?>
+<!--
 <?php echo $sql ?>
+-->
 </table>
 </body>
