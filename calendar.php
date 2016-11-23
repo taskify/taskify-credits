@@ -48,22 +48,6 @@ $today = $today[0]['total'] / 10.0;
 
   <title>Dot Chart</title>
 
-  <link rel="stylesheet" href="demo.css" type="text/css" media="screen">
-  <link rel="stylesheet" href="demo-print.css" type="text/css" media="print">
-  <style type="text/css" media="screen">
-    body {
-      margin: 0;
-    }
-    #chart {
-      color: #333;
-      left: 50%;
-      margin: -150px 0 0 -400px;
-      position: absolute;
-      top: 50%;
-      width: 300px;
-      width: 800px;
-    }
-  </style>
   </head>
 
     <body>
