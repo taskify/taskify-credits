@@ -25,11 +25,6 @@ if (!$date) {
   $r = Database::getInstance()->select("select sum(amount) total, HOUR(timestamp) hour, DAYOFWEEK(timestamp) day from Credit where destination = '$destination' and currency = '$currency' and wallet in ( '$wallet1', '$wallet2')  and DATE_SUB(STR_TO_DATE('$date', '%Y%m%d'),INTERVAL 167 HOUR) <= timestamp and STR_TO_DATE('$date', '%Y%m%d') >= timestamp group by hour, day order by timestamp desc");
 }
 
-print($sql);
-print_r($r);
-
-exit;
-
 
 $tot = 0;
 for ($i = 0; $i<count($r); $i++) {
@@ -149,7 +144,6 @@ for ($day = 1; $day<8; $day++) {
   $week += $tot;
 }
 
-print_r($r);
 
 ?>
 
