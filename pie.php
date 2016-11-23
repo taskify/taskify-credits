@@ -14,11 +14,13 @@ $source = $_REQUEST['source'];
 $amount = $_REQUEST['amount'];
 $type = $_REQUEST['type'];
 $date = $_REQUEST['date'];
+$hour = $_REQUEST['hour'];
 $now = 'NOW()';
 
 if (!isset($type)) {
   $type = 'HOUR';
 }
+
 
 if (!isset($date)) {
   $date = 'CURDATE()';
@@ -27,6 +29,9 @@ if (!isset($date)) {
   $date = "'$date'";
 }
 
+if (isset($hour)) {
+  $now = $hour;
+}
 
 $currency = $currency ? $currency : 'https://taskify.org/points#';
 $source = $source ? $source : 'https://taskify.org/me#';
