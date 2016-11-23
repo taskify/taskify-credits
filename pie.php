@@ -240,7 +240,8 @@ for ($i=0; $i < count ($r); $i++) {
   $row = $r[$i];
   print("<tr><td style='color: $colors[$i];'>$row[description]</td><td>$row[sum]</td></tr>");
 }
-print("<tr><td title='<?php echo $sql ?>'>total</td><td>$total</td></tr>");
+print("<tr><td title='total'>total</td><td>$total</td></tr>");
 ?>
+<?php echo $sql ?>
 </table>
 </body>
