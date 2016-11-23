@@ -21,7 +21,7 @@ if (!isset($type)) {
 }
 
 if (!isset($date)) {
-  $date = 'CURDATE()';
+  $date = CURDATE();
 } else {
   $now = "'$date'";
 }
