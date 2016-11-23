@@ -110,7 +110,7 @@ $today = $today[0]['total'] / 10.0;
     </div>
   </div>
 
-        <table id="for-chart">
+        <table id="">
             <tfoot>
                 <tr>
                     <td>&nbsp;</td>
