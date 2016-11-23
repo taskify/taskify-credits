@@ -17,8 +17,11 @@ $source = $source ? $source : 'https://taskify.org/me#';
 $amount = $amount ? $amount : 25;
 $destination = $destination ? $destination : 'http://melvincarvalho.com/#me';
 
-$r = Database::getInstance()->select("select sum(amount) total, HOUR(created) hour, DAYOFWEEK(created) day from webcredits where destination = '$destination' and currency = '$currency' and DATE_SUB(NOW(),INTERVAL 167 HOUR) <= created group by hour, day order by created desc");
+$sql = "select sum(amount) total, HOUR(created) hour, DAYOFWEEK(created) day from webcredits where destination = '$destination' and currency = '$currency' and DATE_SUB(NOW(),INTERVAL 167 HOUR) <= created group by hour, day order by created desc";
 
+$r = Database::getInstance()->select($sql);
+
+print($sql);
 print_r($r);
 
 exit;
