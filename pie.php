@@ -30,7 +30,7 @@ if (!isset($date)) {
 }
 
 if (isset($hour)) {
-  $now = DATE_ADD(CURDATE(), INTERVAL $hour HOUR);
+  $now = "DATE_ADD(CURDATE(), INTERVAL $hour HOUR)";
 }
 
 $currency = $currency ? $currency : 'https://taskify.org/points#';
