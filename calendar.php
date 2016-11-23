@@ -51,8 +51,7 @@ $today = $today[0]['total'] / 10.0;
   <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap.min.js" type="text/javascript"></script>
 
   <title>Dot Chart</title>
-  <script src="raphael.js" type="text/javascript" charset="utf-8"></script>
-  <script src="dots.js" type="text/javascript" charset="utf-8"></script>
+
   <link rel="stylesheet" href="demo.css" type="text/css" media="screen">
   <link rel="stylesheet" href="demo-print.css" type="text/css" media="print">
   <style type="text/css" media="screen">
@@ -110,7 +109,7 @@ $today = $today[0]['total'] / 10.0;
     </div>
   </div>
 
-        <table id="for-chart">
+        <table>
             <tfoot>
                 <tr>
                     <td>&nbsp;</td>
