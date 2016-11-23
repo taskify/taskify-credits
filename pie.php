@@ -38,7 +38,7 @@ $source = $source ? $source : 'https://taskify.org/me#';
 $amount = $amount ? $amount : 25;
 $destination = $destination ? $destination : 'https://melvincarvalho.com/#me';
 
-$sql = "select sum(amount) sum, description from Credit where ${type}(timestamp) >= ${type}($now) and DATE(timestamp) = $date and destination = '$destination' group by description order by sum desc;";
+$sql = "select sum(amount) sum, description from Credit where ${type}(timestamp) = ${type}($now) and DATE(timestamp) = $date and destination = '$destination' group by description order by sum desc;";
 
 $r = Database::getInstance()->select($sql);
 
