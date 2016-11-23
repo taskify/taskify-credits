@@ -16,10 +16,14 @@ $currency = $currency ? $currency : 'https://w3id.org/cc#bit';
 $source = $source ? $source : 'https://taskify.org/me#';
 $amount = $amount ? $amount : 25;
 $destination = $destination ? $destination : 'http://melvincarvalho.com/#me';
+$wallet1 = 'https://melvincarvalho.com/wallet/taskify.ttl#this';
+$wallet2 = 'https://melvincarvalho.com/wallet/small.ttl#this';
 
-$sql = "select sum(amount) total, HOUR(created) hour, DAYOFWEEK(created) day from webcredits where destination = '$destination' and currency = '$currency' and DATE_SUB(NOW(),INTERVAL 167 HOUR) <= created group by hour, day order by created desc";
-
-$r = Database::getInstance()->select($sql);
+if (!$date) {
+  $r = Database::getInstance()->select("select sum(amount) total, HOUR(timestamp) hour, DAYOFWEEK(timestamp) day from Credit where destination = '$destination' and currency = '$currency' and wallet in ( '$wallet1', '$wallet2')  and DATE_SUB(NOW(),INTERVAL 167 HOUR) <= timestamp group by hour, day order by timestamp desc");
+} else {
+  $r = Database::getInstance()->select("select sum(amount) total, HOUR(timestamp) hour, DAYOFWEEK(timestamp) day from Credit where destination = '$destination' and currency = '$currency' and wallet in ( '$wallet1', '$wallet2')  and DATE_SUB(STR_TO_DATE('$date', '%Y%m%d'),INTERVAL 167 HOUR) <= timestamp and STR_TO_DATE('$date', '%Y%m%d') >= timestamp group by hour, day order by timestamp desc");
+}
 
 print($sql);
 print_r($r);
