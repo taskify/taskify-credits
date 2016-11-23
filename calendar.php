@@ -19,6 +19,10 @@ $destination = $destination ? $destination : 'http://melvincarvalho.com/#me';
 
 $r = Database::getInstance()->select("select sum(amount) total, HOUR(created) hour, DAYOFWEEK(created) day from webcredits where destination = '$destination' and currency = '$currency' and DATE_SUB(NOW(),INTERVAL 167 HOUR) <= created group by hour, day order by created desc");
 
+print_r($r);
+
+exit;
+
 
 $tot = 0;
 for ($i = 0; $i<count($r); $i++) {
