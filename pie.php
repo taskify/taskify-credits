@@ -21,9 +21,10 @@ if (!isset($type)) {
 }
 
 if (!isset($date)) {
-  $date = CURDATE();
+  $date = 'CURDATE()';
 } else {
   $now = "'$date'";
+  $date = "'$date'";
 }
 
 
@@ -34,7 +35,7 @@ $destination = $destination ? $destination : 'https://melvincarvalho.com/#me';
 
 
 
-$r = Database::getInstance()->select("select sum(amount) sum, description from Credit where ${type}(timestamp) >= ${type}($now) and DATE(timestamp) = '$date' and destination = '$destination' group by description order by sum desc;");
+$r = Database::getInstance()->select("select sum(amount) sum, description from Credit where ${type}(timestamp) >= ${type}($now) and DATE(timestamp) = $date and destination = '$destination' group by description order by sum desc;");
 
 $total = 0;
 for ($i=0; $i < count ($r); $i++) {
