@@ -171,14 +171,14 @@ var now = day * 24 + hour
 var today = dots[now]
 for (var i=0; i<168; i++) {
   var date = d.toISOString().substring(0,10)
-  var index = ( now - i ) % 168
-  var h = (168 + index) % 24
+  var index = ( 168 + now - i ) % 168
+  var h = (index) % 24
   if (h === 0) {
     d.setDate(d.getDate() - 1)
   }
   console.log('h', h, 'date', date)
   var el = dots[index]
-  el.href = 'pie.php?date=' + date + '&hour=' + hour
+  el.href = 'pie.php?date=' + date + '&hour=' + h
   console.log(el)
 }
 </script>
