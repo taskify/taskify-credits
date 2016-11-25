@@ -161,5 +161,27 @@ for ($day = 1; $day<8; $day++) {
         </table>
         <div id="chart"></div>
         <p id="copy">Credits received by day and hour. Weekly : <?php echo $week  . ' Daily: ' . $today ?></p>
+
+<script>
+var dots = $('a').splice(3)
+var d = new Date()
+var day = d.getUTCDay()
+var hour = d.getUTCHours()
+var now = day * 24 + hour
+var today = dots[now]
+for (var i=0; i<168; i++) {
+  var date = d.toISOString().substring(0,10)
+  var index = ( now - i ) % 168
+  var h = (168 + index) % 24
+  if (h === 0) {
+    d.setDate(d.getDate() - 1)
+  }
+  console.log('h', h, 'date', date)
+  var el = dots[index]
+  el.href = 'pie.php?date=' + date + '&hour=' + hour
+  console.log(el)
+}
+</script>
+
     </body>
 </html>
