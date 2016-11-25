@@ -3,16 +3,11 @@
 
 require_once 'db/db.php';
 
-class ExternalConnection extends ConnectionSettings {
-    public function __construct() {
-        $this->setHost( 'localhost' );
-        $this->setUser( 'root' );
-        $this->setPassword( '' );
-        $this->setDatabase( 'taskify' );
-    }
-}
 
+
+/*
 Database::getInstance(new ExternalConnection());
+*/
 
 $webcredits_sql = 'CREATE TABLE IF NOT EXISTS `webcredits` (
   `root` varchar(255) DEFAULT NULL,
@@ -28,5 +23,6 @@ $webcredits_sql = 'CREATE TABLE IF NOT EXISTS `webcredits` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8';
 
+/*
 Database::getInstance()->query($webcredits_sql);
-
+*/
