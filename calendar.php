@@ -6,24 +6,26 @@ require_once('init.php');
 header("Access-Control-Allow-Origin: *");
 
 
-$destination = $_REQUEST['destination'];
 $referrer = $_REQUEST['referrer'];
-$currency = $_REQUEST['currency'];
-$source = $_REQUEST['source'];
-$amount = $_REQUEST['amount'];
 
 $currency = $currency ? $currency : 'https://w3id.org/cc#bit';
 $source = $source ? $source : 'https://taskify.org/me#';
 $amount = $amount ? $amount : 25;
-$destination = $destination ? $destination : 'http://melvincarvalho.com/#me';
+$destination = $destination ? $destination : 'https://melvincarvalho.com/#me';
 $wallet1 = 'https://melvincarvalho.com/wallet/taskify.ttl#this';
 $wallet2 = 'https://melvincarvalho.com/wallet/small.ttl#this';
 
 if (!$date) {
-  $r = Database::getInstance()->select("select sum(amount) total, HOUR(timestamp) hour, DAYOFWEEK(timestamp) day from Credit where destination = '$destination' and currency = '$currency' and wallet in ( '$wallet1', '$wallet2')  and DATE_SUB(NOW(),INTERVAL 167 HOUR) <= timestamp group by hour, day order by timestamp desc");
+  $sql = "select sum(amount) total, HOUR(timestamp) hour, DAYOFWEEK(timestamp) day from Credit where destination = '$destination' and currency = '$currency' and wallet in ('$wallet1', '$wallet2')  and DATE_SUB(NOW(),INTERVAL 167 HOUR) <= timestamp group by hour, day order by hour desc";
 } else {
-  $r = Database::getInstance()->select("select sum(amount) total, HOUR(timestamp) hour, DAYOFWEEK(timestamp) day from Credit where destination = '$destination' and currency = '$currency' and wallet in ( '$wallet1', '$wallet2')  and DATE_SUB(STR_TO_DATE('$date', '%Y%m%d'),INTERVAL 167 HOUR) <= timestamp and STR_TO_DATE('$date', '%Y%m%d') >= timestamp group by hour, day order by timestamp desc");
+  $sql = "select sum(amount) total, HOUR(timestamp) hour, DAYOFWEEK(timestamp) day from Credit where destination = '$destination' and currency = '$currency' and wallet in ('$wallet1', '$wallet2')  and DATE_SUB(STR_TO_DATE('$date', '%Y%m%d'),INTERVAL 167 HOUR) <= timestamp and STR_TO_DATE('$date', '%Y%m%d') >= timestamp group by hour, day order by hour desc";
 }
+
+
+error_log($sql);
+
+$st = $db->query($sql);
+$r = $st->fetchAll(PDO::FETCH_ASSOC);
 
 
 $tot = 0;
@@ -36,8 +38,15 @@ for ($i = 0; $i<count($r); $i++) {
   $tot += intval($o['amount']);
 }
 
-$today = Database::getInstance()->select("select sum(amount) total from webcredits where destination = '$destination' and currency = '$currency' and DATE(NOW()) = DATE(created)");
-$today = $today[0]['total'] / 10.0;
+$sql = "select sum(amount) total from webcredits where destination = '$destination' and currency = '$currency' and DATE(NOW()) = DATE(created)";
+
+//$st = $db->query($sql);
+//$today = $st->fetchAll(PDO::FETCH_ASSOC);
+
+//$today = Database::getInstance()->select();
+//$today = $today[0]['total'] / 10.0;
+$today = 0;
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="en">

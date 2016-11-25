@@ -40,8 +40,6 @@ for ($i = 0; $i<count($r); $i++) {
 
 $sql = "select sum(amount) total from webcredits where destination = '$destination' and currency = '$currency' and DATE(NOW()) = DATE(created)";
 
-error_log($sql);
-
 //$st = $db->query($sql);
 //$today = $st->fetchAll(PDO::FETCH_ASSOC);
 
