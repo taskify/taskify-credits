@@ -63,9 +63,15 @@ $today = 0;
 
   <title>Dot Chart</title>
 
+  <style>
+  a {
+    color: white;
+  }
+  </style>
+
   </head>
 
-    <body>
+    <body style="background-color: #333333; color: white; ">
   <div class="navbar-wrapper">
   <!-- Wrap the .navbar in .container to center it within the absolutely positioned parent. -->
     <div class="container">
