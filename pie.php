@@ -261,6 +261,6 @@ for ($i=0; $i < count ($r); $i++) {
 
       <br>
 
-      <a href="calendar.php?destination=<?php echo $destination ?>">Burndown</a>
+      <a href="calendar.php?destination=<?php echo urlencode($destination) ?>">Burndown</a>
 
       </body>
