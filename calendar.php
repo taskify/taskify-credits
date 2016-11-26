@@ -145,7 +145,12 @@ for ($day = 1; $day<8; $day++) {
   $tot = 0;
   $str = '';
   for ($i=0; $i<24; $i++) {
-    $str .= "<td><a target='_blank' class='d' href='pie.php'>" . $arr[$day][$i] / 10 . "</a></td>";
+    $am = $arr[$day][$i];
+    $rad = $am;
+    if ($rad > 410) {
+      $rad = 415;
+    }
+    $str .= "<td><a target='_blank' class='d' href='pie.php'>" . '' . ' <svg width="32" height="32">  <circle cx="16" cy="16" style="fill:rgb(192,0,0);" r="' . $rad / 26 . '"></circle></svg> </a></td>';
     $tot += $arr[$day][$i] / 10;
   }
   echo '<th title="'.$tot.'" scope="row"><a target="_blank" class="day" href="#">'.$days[$day].'</a></th>';
