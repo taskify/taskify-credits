@@ -163,6 +163,26 @@ for ($day = 1; $day<8; $day++) {
         <p id="copy">Credits received by day and hour. Weekly : <?php echo $week  . ' Daily: ' . $today ?></p>
 
 <script>
+// utils
+/**
+ * Get parameters from query string
+ * @param  {string} name Name of parameter
+ * @return {String}      Value of parameter
+ */
+function getParam(name) {
+  name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]")
+  var regexS = "[\\?&]"+name+"=([^&#]*)"
+  var regex = new RegExp(regexS)
+  var results = regex.exec(window.location.href)
+  if( results == null ) {
+    return ""
+  } else {
+    return decodeURIComponent(results[1])
+  }
+}
+
+var destination = getParam('destination') || 'https://melvincarvalho.com/#me'
+
 var dots = $('a').splice(3)
 var d = new Date()
 var day = d.getUTCDay()
@@ -178,7 +198,7 @@ for (var i=0; i<168; i++) {
   }
   //console.log('h', h, 'date', date)
   var el = dots[index]
-  el.href = 'pie.php?date=' + date + '&hour=' + h
+  el.href = 'pie.php?date=' + date + '&hour=' + h + '&destination=' + encodeURIComponent(destination)
   //console.log(el)
 }
 </script>
