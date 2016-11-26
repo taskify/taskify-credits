@@ -83,7 +83,6 @@ svg text.percent{
 <body>
 
 <script src="http://d3js.org/d3.v3.min.js"></script>
-<script src="Donut3D.js"></script>
 <script>
 !function(){
 	var Donut3D={};
