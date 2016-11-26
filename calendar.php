@@ -68,7 +68,7 @@ $today = 0;
     color: white;
   }
   body {
-    background-color: rgb(64,64,64);
+    background-color: rgb(92,92,92);
     color: white;
   }
   </style>

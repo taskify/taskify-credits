@@ -64,7 +64,7 @@ body {
   width: 960px;
   height: 500px;
   position: relative;
-  background-color: rgb(64,64,64);
+  background-color: rgb(92,92,92);
   color: white;
 }
 path.slice{
