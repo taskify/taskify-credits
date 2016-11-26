@@ -56,6 +56,7 @@ for ($i=0; $i < count ($r); $i++) {
 ?>
 
 <!DOCTYPE html>
+<head>
 <meta charset="utf-8">
 <style>
 body {
@@ -80,7 +81,10 @@ svg text.percent{
 }
 
 </style>
+</head>
 <body>
+
+<h3>Activity Breakdown</h3>
 
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script>
