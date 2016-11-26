@@ -83,7 +83,7 @@ $today = 0;
       <div class="navbar navbar-inverse">
 
         <div class="navbar-inner">
-          <h3>Burndown Chart</h3>
+          <h3>Burndown Chart <small>(Click on Dot or Day)</small></h3>
 
           <!--
           <a style="font-family: Arial; font-style:italic; color:#0088CC" class="brand" href="/">Taski<b>f</b>y <sup>&alpha;</sup></a> &nbsp;
@@ -169,10 +169,10 @@ for ($day = 1; $day<8; $day++) {
     $percent = $rad / 415.0;
     $red = round(212.0 * $percent);
     $green = round(212.0 - $red);
-    $str .= "<td><a target='_blank' class='d' href='pie.php'>" . '' . ' <svg width="30" height="30">  <circle cx="15" cy="15" style="fill:rgb('.$red.', '.$green.', 0);" r="' . $rad / 28 . '"><title>' . $am / 10 . '</title></circle></svg> </a></td>';
+    $str .= "<td><a class='d' href='pie.php'>" . '' . ' <svg width="30" height="30">  <circle cx="15" cy="15" style="fill:rgb('.$red.', '.$green.', 0);" r="' . $rad / 28 . '"><title>' . $am / 10 . '</title></circle></svg> </a></td>';
     $tot += $arr[$day][$i] / 10;
   }
-  echo '<th title="'.$tot.'" scope="row"><a style="font-size: 10px" target="_blank" class="day" href="#">'.$days[$day].'</a></th>';
+  echo '<th title="'.$tot.'" scope="row"><a style="font-size: 10px" class="day" href="#">'.$days[$day].'</a></th>';
   echo $str;
   $week += $tot;
 }

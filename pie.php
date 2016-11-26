@@ -13,6 +13,7 @@ $amount = $_REQUEST['amount'];
 $type = $_REQUEST['type'];
 $date = $_REQUEST['date'];
 $hour = $_REQUEST['hour'];
+
 $now = 'NOW()';
 
 if (!isset($type)) {
@@ -31,9 +32,6 @@ if (isset($hour)) {
   $now = "DATE_ADD(CURDATE(), INTERVAL $hour HOUR)";
 }
 
-$currency = $currency ? $currency : 'https://taskify.org/points#';
-$source = $source ? $source : 'https://taskify.org/me#';
-$amount = $amount ? $amount : 25;
 $destination = $destination ? $destination : 'https://melvincarvalho.com/#me';
 
 if ($type === 'HOUR') {
