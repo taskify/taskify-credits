@@ -73,14 +73,20 @@ $today = 0;
       <div class="navbar navbar-inverse">
 
         <div class="navbar-inner">
+          <h3>Burndown Chart</h3>
+
+          <!--
           <a style="font-family: Arial; font-style:italic; color:#0088CC" class="brand" href="/">Taski<b>f</b>y <sup>&alpha;</sup></a> &nbsp;
           <ul class="nav">
             <li id="about"><a href="/">Back</a></li>
           </ul>
+        -->
           <ul class="nav pull-right">
+            <!--
             <li class="dropdown">
               <a id="user" target="_blank" href="#">Burndown Chart For: <?php echo $destination ?></b></a>
             </li>
+          -->
 
           </ul>
           <form class="form-inline pull-left" id="newtagform">
@@ -106,7 +112,7 @@ $today = 0;
 
         <table>
             <tfoot>
-                <tr>
+                <tr style="font-size: 10px">
                     <td>&nbsp;</td>
                     <th>12am</th>
                     <th>1</th>
@@ -150,10 +156,10 @@ for ($day = 1; $day<8; $day++) {
     if ($rad > 410) {
       $rad = 415;
     }
-    $str .= "<td><a target='_blank' class='d' href='pie.php'>" . '' . ' <svg width="32" height="32">  <circle cx="16" cy="16" style="fill:rgb(192,0,0);" r="' . $rad / 26 . '"></circle></svg> </a></td>';
+    $str .= "<td><a target='_blank' class='d' href='pie.php'>" . '' . ' <svg width="30" height="30">  <circle cx="15" cy="15" style="fill:rgb(192,0,0);" r="' . $rad / 28 . '"></circle></svg> </a></td>';
     $tot += $arr[$day][$i] / 10;
   }
-  echo '<th title="'.$tot.'" scope="row"><a target="_blank" class="day" href="#">'.$days[$day].'</a></th>';
+  echo '<th title="'.$tot.'" scope="row"><a style="font-size: 10px" target="_blank" class="day" href="#">'.$days[$day].'</a></th>';
   echo $str;
   $week += $tot;
 }
