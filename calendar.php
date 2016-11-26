@@ -166,7 +166,10 @@ for ($day = 1; $day<8; $day++) {
     if ($rad > 410) {
       $rad = 415;
     }
-    $str .= "<td><a target='_blank' class='d' href='pie.php'>" . '' . ' <svg width="30" height="30">  <circle cx="15" cy="15" style="fill:rgb(192,0,0);" r="' . $rad / 28 . '"><title>' . $am / 10 . '</title></circle></svg> </a></td>';
+    $percent = $rad / 415.0;
+    $red = round(212.0 * $percent);
+    $green = round(212.0 - $red);
+    $str .= "<td><a target='_blank' class='d' href='pie.php'>" . '' . ' <svg width="30" height="30">  <circle cx="15" cy="15" style="fill:rgb('.$red.', '.$green.', 0);" r="' . $rad / 28 . '"><title>' . $am / 10 . '</title></circle></svg> </a></td>';
     $tot += $arr[$day][$i] / 10;
   }
   echo '<th title="'.$tot.'" scope="row"><a style="font-size: 10px" target="_blank" class="day" href="#">'.$days[$day].'</a></th>';
