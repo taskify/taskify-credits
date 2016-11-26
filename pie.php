@@ -64,6 +64,8 @@ body {
   width: 960px;
   height: 500px;
   position: relative;
+  background-color: rgb(64,64,64);
+  color: white;
 }
 path.slice{
 	stroke-width:2px;
@@ -80,9 +82,11 @@ svg text.percent{
 	font-size:12px;
 }
 
+
+
 </style>
 </head>
-<body style="background-color: #333333; color: white; ">
+<body>
 
 <h3>Activity Breakdown</h3>
 

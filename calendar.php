@@ -67,11 +67,15 @@ $today = 0;
   a {
     color: white;
   }
+  body {
+    background-color: rgb(64,64,64);
+    color: white;
+  }
   </style>
 
   </head>
 
-    <body style="background-color: #333333; color: white; ">
+    <body>
   <div class="navbar-wrapper">
   <!-- Wrap the .navbar in .container to center it within the absolutely positioned parent. -->
     <div class="container">
