@@ -36,7 +36,14 @@ $source = $source ? $source : 'https://taskify.org/me#';
 $amount = $amount ? $amount : 25;
 $destination = $destination ? $destination : 'https://melvincarvalho.com/#me';
 
-$sql = "select sum(amount) sum, description from Credit where ${type}(timestamp) = ${type}($now) and DATE(timestamp) = $date and destination = '$destination' group by description order by sum desc;";
+if ($type === 'HOUR') {
+  $sql = "select sum(amount) sum, description from Credit where HOUR(timestamp) = HOUR($now) and DATE(timestamp) = $date and destination = '$destination' group by description order by sum desc;";
+} else if ($type === 'DATE') {
+  $sql = "select sum(amount) sum, description from Credit where DATE(timestamp) = DATE($now) and DATE(timestamp) = $date and destination = '$destination' group by description order by sum desc;";
+} else {
+  $sql = "select sum(amount) sum, description from Credit where ${type}(timestamp) = ${type}($now) and DATE(timestamp) = $date and destination = '$destination' group by description order by sum desc;";
+}
+
 
 $st = $db->query($sql);
 $r = $st->fetchAll(PDO::FETCH_ASSOC);
@@ -80,7 +87,7 @@ for ($i=0; $i < count ($r); $i++) {
 </head>
 <body>
 
-  <h3>Activity Breakdown <small>(<?php echo $date ?>)</small></h3>
+  <h3>Activity Breakdown <small>(<?php echo $date === 'CURDATE()' ? 'Today' : $date ?>)</small></h3>
 
   <script src="http://d3js.org/d3.v3.min.js"></script>
   <script>
