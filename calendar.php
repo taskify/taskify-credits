@@ -179,7 +179,7 @@ for (var i=0; i<168; i++) {
   //console.log('h', h, 'date', date)
   var el = dots[index]
   el.href = 'pie.php?date=' + date + '&hour=' + h
-  console.log(el)
+  //console.log(el)
 }
 </script>
 
