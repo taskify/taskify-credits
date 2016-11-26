@@ -145,10 +145,10 @@ for ($day = 1; $day<8; $day++) {
   $tot = 0;
   $str = '';
   for ($i=0; $i<24; $i++) {
-    $str .= "<td><a target='_blank' href='pie.php?hour=$i'>" . $arr[$day][$i] / 10 . "</a></td>";
+    $str .= "<td><a target='_blank' class='d' href='pie.php'>" . $arr[$day][$i] / 10 . "</a></td>";
     $tot += $arr[$day][$i] / 10;
   }
-  echo '<th title="'.$tot.'" scope="row">'.$days[$day].'</th>';
+  echo '<th title="'.$tot.'" scope="row"><a target="_blank" class="day" href="#">'.$days[$day].'</a></th>';
   echo $str;
   $week += $tot;
 }
@@ -183,7 +183,7 @@ function getParam(name) {
 
 var destination = getParam('destination') || 'https://melvincarvalho.com/#me'
 
-var dots = $('a').splice(3)
+var dots = $('.d')
 var d = new Date()
 var day = d.getUTCDay()
 var hour = d.getUTCHours()
@@ -201,6 +201,17 @@ for (var i=0; i<168; i++) {
   el.href = 'pie.php?date=' + date + '&hour=' + h + '&destination=' + encodeURIComponent(destination)
   //console.log(el)
 }
+
+var d = new Date()
+var days = $('.day')
+for (var i = 0; i < 7; i++) {
+  var date = d.toISOString().substring(0,10)
+  var index = ( 7 + day - i) % 7
+  el = days[index]
+  el.href = 'pie.php?destination=' + encodeURIComponent(destination) + '&type=DATE&date=' + date
+  d.setDate(d.getDate() - 1)
+}
+
 </script>
 
     </body>

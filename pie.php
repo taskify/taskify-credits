@@ -42,7 +42,6 @@ $destination = $destination ? $destination : 'https://melvincarvalho.com/#me';
 
 $sql = "select sum(amount) sum, description from Credit where ${type}(timestamp) = ${type}($now) and DATE(timestamp) = $date and destination = '$destination' group by description order by sum desc;";
 
-// $sql = "select 1;";
 
 $st = $db->query($sql);
 $r = $st->fetchAll(PDO::FETCH_ASSOC);
