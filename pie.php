@@ -244,10 +244,8 @@ for ($i=0; $i < count ($r); $i++) {
       var svg = d3.select("body").append("svg").attr("width",700).attr("height",300);
 
       svg.append("g").attr("id","salesDonut");
-      //svg.append("g").attr("id","quotesDonut");
 
       Donut3D.draw("salesDonut", salesData, 150, 150, 130, 100, 30, 0.4);
-      //Donut3D.draw("quotesDonut", randomData(), 450, 150, 130, 100, 30, 0);
 
       </script>
       <table>
@@ -259,8 +257,12 @@ for ($i=0; $i < count ($r); $i++) {
       }
       print("<tr><td title='total'>total</td><td>$total</td></tr>");
       ?>
-      <!--
-      <?php echo $sql ?>
-      -->
+
+
       </table>
+
+      <br>
+
+      <a href="calendar.php?destination=<?php echo $destination ?>">Burndown</a>
+
       </body>
