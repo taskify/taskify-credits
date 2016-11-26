@@ -82,7 +82,7 @@ svg text.percent{
 
 </style>
 </head>
-<body>
+<body style="background-color: #333333; color: white; ">
 
 <h3>Activity Breakdown</h3>
 
