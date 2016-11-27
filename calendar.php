@@ -236,7 +236,7 @@ for (var i = 0; i < 7; i++) {
   d.setDate(d.getDate() - 1)
 }
 
-var week = $('#week')
+var week = $('#week')[0]
 week.href = 'pie.php?destination=' + encodeURIComponent(destination) + '&type=WEEK&date=' + date
 
 
