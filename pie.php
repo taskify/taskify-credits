@@ -47,7 +47,13 @@ if ($type === 'HOUR') {
 // week or date supplied
 // or default to now
 } else if ($type === 'WEEK') {
-  $sql = "select sum(amount) sum, description from Credit where DATE(timestamp) = DATE($now) and DATE(timestamp) = $date and destination = '$destination' group by description order by sum desc;";
+  if (isset($week)) {
+    $sql = "select sum(amount) sum, description from Credit where WEEK(timestamp) = $week and destination = '$destination' group by description order by sum desc;";
+  } else if (isset($date)) {
+    $sql = "select sum(amount) sum, description from Credit where WEEK(timestamp) = WEEK('$date') and destination = '$destination' group by description order by sum desc;";
+  } else {
+    $sql = "select sum(amount) sum, description from Credit where WEEK(timestamp) = WEEK(NOW()) and destination = '$destination' group by description order by sum desc;";
+  }
 } else {
   $sql = "select sum(amount) sum, description from Credit where ${type}(timestamp) = ${type}($now) and DATE(timestamp) = $date and destination = '$destination' group by description order by sum desc;";
 }
