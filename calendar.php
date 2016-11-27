@@ -184,7 +184,7 @@ for ($day = 1; $day<8; $day++) {
             </tbody>
         </table>
         <div id="chart"></div>
-        <p id="copy">Credits received by day and hour. Weekly : <?php echo $week  . ' Daily: ' . $today ?></p>
+        <p id="copy">Credits received by day and hour. <a id="week" href="#">Weekly</a> : <?php echo $week  . ' Daily: ' . $today ?></p>
 
 <script>
 // utils
@@ -235,6 +235,10 @@ for (var i = 0; i < 7; i++) {
   el.href = 'pie.php?destination=' + encodeURIComponent(destination) + '&type=DATE&date=' + date
   d.setDate(d.getDate() - 1)
 }
+
+var week = $('#week')
+week.href = 'pie.php?destination=' + encodeURIComponent(destination) + '&type=WEEK&date=' + date
+
 
 </script>
 
