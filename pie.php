@@ -95,7 +95,7 @@ for ($i=0; $i < count ($r); $i++) {
 </head>
 <body>
 
-  <h3>Activity Breakdown <small>(<?php echo ($date === 'CURDATE()' ? 'Today' : str_replace("'", '', $date)) . (isset($hour) ? ' ' . $hour . 'h' : '') ?>)</small></h3>
+  <h3>Activity Breakdown <small>(<?php echo ( !isset($date) ? 'Today' : str_replace("'", '', $date)) . (isset($hour) ? ' ' . $hour . 'h' : '') ?>)</small></h3>
 
   <script src="http://d3js.org/d3.v3.min.js"></script>
   <script>
