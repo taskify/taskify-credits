@@ -13,9 +13,10 @@ $amount = $_REQUEST['amount'];
 $type = $_REQUEST['type'];
 $date = $_REQUEST['date'];
 $hour = $_REQUEST['hour'];
+$week = $_REQUEST['week'];
+
 
 $now = 'NOW()';
-
 if (!isset($type)) {
   $type = 'HOUR';
 }
@@ -34,9 +35,26 @@ if (isset($hour)) {
 
 $destination = $destination ? $destination : 'https://melvincarvalho.com/#me';
 
+
+// hour and date supplied
+// or default to now
 if ($type === 'HOUR') {
-  $sql = "select sum(amount) sum, description from Credit where HOUR(timestamp) = HOUR($now) and DATE(timestamp) = $date and destination = '$destination' group by description order by sum desc;";
+  if (isset($date) && isset($hour)) {
+    $sql = "select sum(amount) sum, description from Credit where HOUR(timestamp) = $hour and DATE(timestamp) = $date and destination = '$destination' group by description order by sum desc;";
+  } else if (isset($date)) {
+    $sql = "select sum(amount) sum, description from Credit where HOUR(timestamp) = HOUR(NOW()) and DATE(timestamp) = $date and destination = '$destination' group by description order by sum desc;";
+  } else if (isset($hour)) {
+    $sql = "select sum(amount) sum, description from Credit where HOUR(timestamp) = $hour and DATE(timestamp) = CURDATE() and destination = '$destination' group by description order by sum desc;";
+  } else {
+    $sql = "select sum(amount) sum, description from Credit where HOUR(timestamp) = HOUR(NOW()) and DATE(timestamp) = CURDATE() and destination = '$destination' group by description order by sum desc;";
+  }
+// date supplied
+// or default to now
 } else if ($type === 'DATE') {
+  $sql = "select sum(amount) sum, description from Credit where DATE(timestamp) = DATE($now) and DATE(timestamp) = $date and destination = '$destination' group by description order by sum desc;";
+// week or date supplied
+// or default to now
+} else if ($type === 'WEEK') {
   $sql = "select sum(amount) sum, description from Credit where DATE(timestamp) = DATE($now) and DATE(timestamp) = $date and destination = '$destination' group by description order by sum desc;";
 } else {
   $sql = "select sum(amount) sum, description from Credit where ${type}(timestamp) = ${type}($now) and DATE(timestamp) = $date and destination = '$destination' group by description order by sum desc;";
