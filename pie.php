@@ -28,7 +28,7 @@ $destination = $destination ? $destination : 'https://melvincarvalho.com/#me';
 // hour and date supplied
 // or default to now
 if ($type === 'HOUR') {
-  $label = 'Hourly '
+  $label = 'Hourly ';
   if (isset($date) && isset($hour)) {
     $sql = "select sum(amount) sum, description from Credit where HOUR(timestamp) = $hour and DATE(timestamp) = '$date' and destination = '$destination' group by description order by sum desc;";
   } else if (isset($date)) {
@@ -41,7 +41,7 @@ if ($type === 'HOUR') {
 // date supplied
 // or default to now
 } else if ($type === 'DATE') {
-  $label = 'Daily '
+  $label = 'Daily ';
   if (isset($date)) {
     $sql = "select sum(amount) sum, description from Credit where DATE(timestamp) = '$date' and destination = '$destination' group by description order by sum desc;";
   } else {
@@ -50,7 +50,7 @@ if ($type === 'HOUR') {
 // week or date supplied
 // or default to now
 } else if ($type === 'WEEK') {
-  $label = 'Weekly '
+  $label = 'Weekly ';
   if (isset($week)) {
     $sql = "select sum(amount) sum, description from Credit where WEEK(timestamp) = $week and destination = '$destination' group by description order by sum desc;";
   } else if (isset($date)) {
