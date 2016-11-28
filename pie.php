@@ -20,6 +20,7 @@ if (!isset($type)) {
   $type = 'HOUR';
 }
 
+$label = '';
 
 $destination = $destination ? $destination : 'https://melvincarvalho.com/#me';
 
@@ -27,6 +28,7 @@ $destination = $destination ? $destination : 'https://melvincarvalho.com/#me';
 // hour and date supplied
 // or default to now
 if ($type === 'HOUR') {
+  $label = 'Hourly '
   if (isset($date) && isset($hour)) {
     $sql = "select sum(amount) sum, description from Credit where HOUR(timestamp) = $hour and DATE(timestamp) = '$date' and destination = '$destination' group by description order by sum desc;";
   } else if (isset($date)) {
@@ -39,6 +41,7 @@ if ($type === 'HOUR') {
 // date supplied
 // or default to now
 } else if ($type === 'DATE') {
+  $label = 'Daily '
   if (isset($date)) {
     $sql = "select sum(amount) sum, description from Credit where DATE(timestamp) = '$date' and destination = '$destination' group by description order by sum desc;";
   } else {
@@ -47,6 +50,7 @@ if ($type === 'HOUR') {
 // week or date supplied
 // or default to now
 } else if ($type === 'WEEK') {
+  $label = 'Weekly '
   if (isset($week)) {
     $sql = "select sum(amount) sum, description from Credit where WEEK(timestamp) = $week and destination = '$destination' group by description order by sum desc;";
   } else if (isset($date)) {
@@ -101,7 +105,7 @@ for ($i=0; $i < count ($r); $i++) {
 </head>
 <body>
 
-  <h3>Activity Breakdown <small>(<?php echo ( !isset($date) ? 'Today' : str_replace("'", '', $date)) . (isset($hour) ? ' ' . $hour . 'h' : '') ?>)</small></h3>
+  <h3><?php echo $tabel ?>Activity Breakdown <small>(<?php echo ( !isset($date) ? 'Today' : str_replace("'", '', $date)) . (isset($hour) ? ' ' . $hour . 'h' : '') ?>)</small></h3>
 
   <script src="http://d3js.org/d3.v3.min.js"></script>
   <script>
