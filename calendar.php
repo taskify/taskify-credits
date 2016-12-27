@@ -253,7 +253,7 @@ for (var i = 0; i < 7; i++) {
 var week = $('#week')[0]
 week.href = 'pie.php?destination=' + encodeURIComponent(destination) + '&type=WEEK&date=' + date
 
-$('#week').text(dailyTotal)
+$('#dailyTotal').text(dailyTotal)
 
 </script>
 
