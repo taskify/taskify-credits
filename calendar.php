@@ -7,6 +7,7 @@ header("Access-Control-Allow-Origin: *");
 
 
 $referrer = $_REQUEST['referrer'];
+$date = $_REQUEST['date'];
 
 $currency = $currency ? $currency : 'https://w3id.org/cc#bit';
 $source = $source ? $source : 'https://taskify.org/me#';
