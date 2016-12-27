@@ -233,6 +233,10 @@ weekEl.href = 'pie.php?destination=' + encodeURIComponent(destination) + '&type=
 var dayEl = $('#day')[0]
 dayEl.href = 'pie.php?destination=' + encodeURIComponent(destination) + '&type=DATE&date=' + date
 
+// day summary hyperlink
+var hourEl = $('#hour')[0]
+dayEl.href = 'pie.php?destination=' + encodeURIComponent(destination) 
+
 // add hyperlinks to hours
 for (var i=0; i<168; i++) {
   date = d.toISOString().substring(0,10)
