@@ -217,9 +217,20 @@ var hour = d.getUTCHours()
 var now = day * 24 + hour
 var today = dots[now]
 
+var date = d.toISOString().substring(0,10)
+
+// week summarary hyperlink
+var week = $('#week')[0]
+week.href = 'pie.php?destination=' + encodeURIComponent(destination) + '&type=WEEK&date=' + date
+
+// day total
+$('#dailyTotal').text(dailyTotal)
+var day = $('#day')[0]
+day.href = 'pie.php?destination=' + encodeURIComponent(destination) + '&type=DATE&date=' + date
+
 // add hyperlinks to hours
 for (var i=0; i<168; i++) {
-  var date = d.toISOString().substring(0,10)
+  date = d.toISOString().substring(0,10)
   var index = ( 168 + now - i ) % 168
   var h = (index) % 24
 
@@ -252,14 +263,6 @@ for (var i = 0; i < 7; i++) {
   d.setDate(d.getDate() - 1)
 }
 
-// week summarary hyperlink
-var week = $('#week')[0]
-week.href = 'pie.php?destination=' + encodeURIComponent(destination) + '&type=WEEK&date=' + date
-
-// day total
-$('#dailyTotal').text(dailyTotal)
-var day = $('#day')[0]
-day.href = 'pie.php?destination=' + encodeURIComponent(destination) + '&type=DATE&date=' + date
 
 </script>
 
