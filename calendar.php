@@ -259,7 +259,7 @@ week.href = 'pie.php?destination=' + encodeURIComponent(destination) + '&type=WE
 // day total
 $('#dailyTotal').text(dailyTotal)
 var day = $('#day')[0]
-week.href = 'pie.php?destination=' + encodeURIComponent(destination) + '&type=DATE&date=' + date
+day.href = 'pie.php?destination=' + encodeURIComponent(destination) + '&type=DATE&date=' + date
 
 </script>
 
