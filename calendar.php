@@ -154,7 +154,7 @@ $today = 0;
                 <tr>
 
 <?php
-$factor = 10
+$factor = 10;
 $week = 0;
 $days = array(0, 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat');
 for ($day = 1; $day<8; $day++) {
