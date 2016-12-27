@@ -235,7 +235,7 @@ dayEl.href = 'pie.php?destination=' + encodeURIComponent(destination) + '&type=D
 
 // day summary hyperlink
 var hourEl = $('#hour')[0]
-dayEl.href = 'pie.php?destination=' + encodeURIComponent(destination) 
+hourEl.href = 'pie.php?destination=' + encodeURIComponent(destination) 
 
 // add hyperlinks to hours
 for (var i=0; i<168; i++) {
