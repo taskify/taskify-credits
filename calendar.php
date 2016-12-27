@@ -220,12 +220,12 @@ var today = dots[now]
 var date = d.toISOString().substring(0,10)
 
 // week summarary hyperlink
-var week = $('#week')[0]
-week.href = 'pie.php?destination=' + encodeURIComponent(destination) + '&type=WEEK&date=' + date
+var weekEl = $('#week')[0]
+weekEl.href = 'pie.php?destination=' + encodeURIComponent(destination) + '&type=WEEK&date=' + date
 
 // day summary hyperlink
-var day = $('#day')[0]
-day.href = 'pie.php?destination=' + encodeURIComponent(destination) + '&type=DATE&date=' + date
+var dayEl = $('#day')[0]
+dayEl.href = 'pie.php?destination=' + encodeURIComponent(destination) + '&type=DATE&date=' + date
 
 // add hyperlinks to hours
 for (var i=0; i<168; i++) {
