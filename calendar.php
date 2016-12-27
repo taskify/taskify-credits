@@ -223,8 +223,7 @@ var date = d.toISOString().substring(0,10)
 var week = $('#week')[0]
 week.href = 'pie.php?destination=' + encodeURIComponent(destination) + '&type=WEEK&date=' + date
 
-// day total
-$('#dailyTotal').text(dailyTotal)
+// day summary hyperlink
 var day = $('#day')[0]
 day.href = 'pie.php?destination=' + encodeURIComponent(destination) + '&type=DATE&date=' + date
 
@@ -263,6 +262,8 @@ for (var i = 0; i < 7; i++) {
   d.setDate(d.getDate() - 1)
 }
 
+// daily total
+$('#dailyTotal').text(dailyTotal)
 
 </script>
 
