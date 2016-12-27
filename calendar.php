@@ -225,8 +225,10 @@ for (var i=0; i<168; i++) {
   var el = dots[index]
   el.href = 'pie.php?date=' + date + '&hour=' + h + '&destination=' + encodeURIComponent(destination)
   var hourlyAmount = el.firstChild.nextSibling.firstChild.nextSibling.firstChild.innerHTML
-  console.log(hourlyAmount)
+  weeklyTotal += parseInt(hourlyAmount)
 }
+console.log('weeklyTotal', weeklyTotal)
+
 
 var d = new Date()
 var days = $('.day')
