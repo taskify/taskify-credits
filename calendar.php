@@ -184,7 +184,7 @@ for ($day = 1; $day<8; $day++) {
             </tbody>
         </table>
         <div id="chart"></div>
-        <p id="copy">Credits received by day and hour. <a id="week" href="#">Weekly</a> : <?php echo $week  . ' <a id="day" href="#">Daily</a>: <span id="dailyTotal">' . $today ?></span></p>
+        <p id="copy">Credits received by day and hour. | <a id="week" href="#">Weekly</a> : <?php echo $week  . ' <a id="day" href="#">Daily</a>: <span id="dailyTotal"> | ' . $today ?></span> | </p>
 
 <script>
 // utils
