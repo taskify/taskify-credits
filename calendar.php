@@ -207,6 +207,7 @@ function getParam(name) {
 
 var destination = getParam('destination') || 'https://melvincarvalho.com/#me'
 
+var weeklyTotal = 0
 var dots = $('.d')
 var d = new Date()
 var day = d.getUTCDay()
@@ -223,7 +224,7 @@ for (var i=0; i<168; i++) {
   //console.log('h', h, 'date', date)
   var el = dots[index]
   el.href = 'pie.php?date=' + date + '&hour=' + h + '&destination=' + encodeURIComponent(destination)
-  //console.log(el)
+  console.log(el)
 }
 
 var d = new Date()
