@@ -208,6 +208,8 @@ function getParam(name) {
 var destination = getParam('destination') || 'https://melvincarvalho.com/#me'
 
 var weeklyTotal = 0
+var dailyTotal = 0
+var isToday = true
 var dots = $('.d')
 var d = new Date()
 var day = d.getUTCDay()
@@ -218,16 +220,24 @@ for (var i=0; i<168; i++) {
   var date = d.toISOString().substring(0,10)
   var index = ( 168 + now - i ) % 168
   var h = (index) % 24
-  if (h === 0) {
-    d.setDate(d.getDate() - 1)
-  }
-  //console.log('h', h, 'date', date)
+
   var el = dots[index]
   el.href = 'pie.php?date=' + date + '&hour=' + h + '&destination=' + encodeURIComponent(destination)
   var hourlyAmount = el.firstChild.nextSibling.firstChild.nextSibling.firstChild.innerHTML
   weeklyTotal += parseFloat(hourlyAmount)
+
+  if (isToday) {
+    dailyTotal += hourlyAmount
+  }
+
+  if (h === 0) {
+    d.setDate(d.getDate() - 1)
+    isToday = false
+  }
+
 }
 console.log('weeklyTotal', weeklyTotal)
+console.log('dailyTotal', dailyTotal)
 
 
 var d = new Date()
