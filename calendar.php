@@ -184,7 +184,7 @@ for ($day = 1; $day<8; $day++) {
             </tbody>
         </table>
         <div id="chart"></div>
-        <p id="copy">Credits received by day and hour. | <a id="week" href="#">Weekly</a> : <?php echo $week  . ' <a id="day" href="#">Daily</a>: <span id="dailyTotal"> | ' . $today ?></span> | </p>
+        <p id="copy">Credits received by day and hour. | <a id="week" href="#">Weekly</a> : <?php echo $week  . ' | <a id="day" href="#">Daily</a>: <span id="dailyTotal"> | <a id="hour" href="#">Hourly</a>: <span id="hourlyTotal"> ' . $today ?></span> | </p>
 
 <script>
 // utils
@@ -209,6 +209,8 @@ var destination = getParam('destination') || 'https://melvincarvalho.com/#me'
 
 var weeklyTotal = 0
 var dailyTotal = 0
+var hourlyTotal = 0
+var isHour = true
 var isToday = true
 var dots = $('.d')
 var d = new Date()
@@ -242,10 +244,15 @@ for (var i=0; i<168; i++) {
     dailyTotal += hourlyAmount
   }
 
+  if (isHour) {
+    hourlyTotal += hourlyAmount
+  }
+
   if (h === 0) {
     d.setDate(d.getDate() - 1)
     isToday = false
   }
+  isHour = false
 
 }
 console.log('weeklyTotal', weeklyTotal)
@@ -264,6 +271,9 @@ for (var i = 0; i < 7; i++) {
 
 // daily total
 $('#dailyTotal').text(dailyTotal)
+
+// hourly total
+$('#hourlyTotal').text(hourlyTotal)
 
 </script>
 
