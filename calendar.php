@@ -154,6 +154,7 @@ $today = 0;
                 <tr>
 
 <?php
+$factor = 10
 $week = 0;
 $days = array(0, 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat');
 for ($day = 1; $day<8; $day++) {
@@ -169,8 +170,8 @@ for ($day = 1; $day<8; $day++) {
     $percent = $rad / 415.0;
     $red = round(212.0 * $percent);
     $green = round(212.0 - $red);
-    $str .= "<td><a class='d' href='pie.php'>" . '' . ' <svg width="30" height="30">  <circle cx="15" cy="15" style="fill:rgb('.$red.', '.$green.', 0);" r="' . $rad / 28 . '"><title>' . $am / 10 . '</title></circle></svg> </a></td>';
-    $tot += $arr[$day][$i] / 10;
+    $str .= "<td><a class='d' href='pie.php'>" . '' . ' <svg width="30" height="30">  <circle cx="15" cy="15" style="fill:rgb('.$red.', '.$green.', 0);" r="' . $rad / 28 . '"><title>' . $am / $factor . '</title></circle></svg> </a></td>';
+    $tot += $arr[$day][$i] / $factor;
   }
   echo '<th title="'.$tot.'" scope="row"><a style="font-size: 10px" class="day" href="#">'.$days[$day].'</a></th>';
   echo $str;
@@ -211,6 +212,7 @@ function getParam(name) {
 
 var destination = getParam('destination') || 'https://melvincarvalho.com/#me'
 
+var factor = 10
 var weeklyTotal = 0
 var dailyTotal = 0
 var hourlyTotal = 0
