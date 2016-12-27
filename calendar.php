@@ -184,7 +184,7 @@ for ($day = 1; $day<8; $day++) {
             </tbody>
         </table>
         <div id="chart"></div>
-        <p id="copy">Credits received by day and hour. <a id="week" href="#">Weekly</a> : <?php echo $week  . ' Daily: <span id="dailyTotal">' . $today ?></span></p>
+        <p id="copy">Credits received by day and hour. <a id="week" href="#">Weekly</a> : <?php echo $week  . ' <a id="day" href="#">Daily</a>: <span id="dailyTotal">' . $today ?></span></p>
 
 <script>
 // utils
@@ -216,6 +216,8 @@ var day = d.getUTCDay()
 var hour = d.getUTCHours()
 var now = day * 24 + hour
 var today = dots[now]
+
+// add hyperlinks to hours
 for (var i=0; i<168; i++) {
   var date = d.toISOString().substring(0,10)
   var index = ( 168 + now - i ) % 168
@@ -239,7 +241,7 @@ for (var i=0; i<168; i++) {
 console.log('weeklyTotal', weeklyTotal)
 console.log('dailyTotal', dailyTotal)
 
-
+// days of week
 var d = new Date()
 var days = $('.day')
 for (var i = 0; i < 7; i++) {
@@ -250,10 +252,14 @@ for (var i = 0; i < 7; i++) {
   d.setDate(d.getDate() - 1)
 }
 
+// week summarary hyperlink
 var week = $('#week')[0]
 week.href = 'pie.php?destination=' + encodeURIComponent(destination) + '&type=WEEK&date=' + date
 
+// day total
 $('#dailyTotal').text(dailyTotal)
+var day = $('#day')[0]
+week.href = 'pie.php?destination=' + encodeURIComponent(destination) + '&type=DATE&date=' + date
 
 </script>
 
