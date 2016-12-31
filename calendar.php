@@ -208,7 +208,7 @@ function getParam(name) {
 }
 
 var destination = getParam('destination') || 'https://melvincarvalho.com/#me'
-var dateParam = getParam('date') || new Date.toISOString().substring(0,10)
+var dateParam = getParam('date') || new Date().toISOString().substring(0,10)
 
 var factor = 10
 var weeklyTotal = 0
