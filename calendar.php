@@ -208,6 +208,7 @@ function getParam(name) {
 }
 
 var destination = getParam('destination') || 'https://melvincarvalho.com/#me'
+var dateParam = getParam('date') || new Date.toISOString().substring(0,10)
 
 var factor = 10
 var weeklyTotal = 0
@@ -264,6 +265,7 @@ for (var i=0; i<168; i++) {
 }
 console.log('weeklyTotal', weeklyTotal)
 console.log('dailyTotal', dailyTotal)
+console.log('dateParam', dateParam)
 
 // days of week
 var d = new Date()
@@ -281,6 +283,8 @@ $('#dailyTotal').text(dailyTotal)
 
 // hourly total
 $('#hourlyTotal').text(hourlyTotal)
+
+// forward and back arrows
 
 </script>
 
