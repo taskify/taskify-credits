@@ -268,7 +268,7 @@ console.log('dailyTotal', dailyTotal)
 console.log('dateParam', dateParam)
 
 // days of week
-d = new Date()
+d = new Date(dateParam)
 var days = $('.day')
 for (var i = 0; i < 7; i++) {
   var date = d.toISOString().substring(0,10)
