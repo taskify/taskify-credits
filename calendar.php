@@ -25,8 +25,10 @@ if (!$date) {
 
 error_log($sql);
 
-$st = $db->query($sql);
-$r = $st->fetchAll(PDO::FETCH_ASSOC);
+$params = array();
+$sth = $db->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+$sth->execute($params);
+$r = $sth->fetchAll(PDO::FETCH_ASSOC);
 
 
 $tot = 0;
