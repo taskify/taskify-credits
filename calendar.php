@@ -42,13 +42,6 @@ for ($i = 0; $i<count($r); $i++) {
   $tot += intval($o['amount']);
 }
 
-$sql = "select sum(amount) total from webcredits where destination = '$destination' and currency = '$currency' and DATE(NOW()) = DATE(created)";
-
-//$st = $db->query($sql);
-//$today = $st->fetchAll(PDO::FETCH_ASSOC);
-
-//$today = Database::getInstance()->select();
-//$today = $today[0]['total'] / 10.0;
 $today = 0;
 
 ?>
