@@ -30,41 +30,52 @@ $destination = $destination ? $destination : 'https://melvincarvalho.com/#me';
 if ($type === 'HOUR') {
   $label = 'Hourly ';
   if (isset($date) && isset($hour)) {
-    $sql = "select sum(amount) sum, description from Credit where HOUR(timestamp) = $hour and DATE(timestamp) = '$date' and destination = '$destination' group by description order by sum desc;";
+    $sql = "select sum(amount) sum, description from Credit where HOUR(timestamp) = :hour and DATE(timestamp) = :date and destination = :destination group by description order by sum desc;";
+    $params = array(':hour' => hour, ':date' => $date, ':destination' => $destination);
   } else if (isset($date)) {
-    $sql = "select sum(amount) sum, description from Credit where HOUR(timestamp) = HOUR(NOW()) and DATE(timestamp) = '$date' and destination = '$destination' group by description order by sum desc;";
+    $sql = "select sum(amount) sum, description from Credit where HOUR(timestamp) = HOUR(NOW()) and DATE(timestamp) = :date and destination = :destination group by description order by sum desc;";
+    $params = array(':date' => $date, ':destination' => $destination);
   } else if (isset($hour)) {
-    $sql = "select sum(amount) sum, description from Credit where HOUR(timestamp) = $hour and DATE(timestamp) = CURDATE() and destination = '$destination' group by description order by sum desc;";
+    $sql = "select sum(amount) sum, description from Credit where HOUR(timestamp) = :hour and DATE(timestamp) = CURDATE() and destination = :destination group by description order by sum desc;";
+    $params = array(':hour' => hour, ':destination' => $destination);
   } else {
-    $sql = "select sum(amount) sum, description from Credit where HOUR(timestamp) = HOUR(NOW()) and DATE(timestamp) = CURDATE() and destination = '$destination' group by description order by sum desc;";
+    $sql = "select sum(amount) sum, description from Credit where HOUR(timestamp) = HOUR(NOW()) and DATE(timestamp) = CURDATE() and destination = :destination group by description order by sum desc;";
+    $params = array(':destination' => $destination);
   }
 // date supplied
 // or default to now
 } else if ($type === 'DATE') {
   $label = 'Daily ';
   if (isset($date)) {
-    $sql = "select sum(amount) sum, description from Credit where DATE(timestamp) = '$date' and destination = '$destination' group by description order by sum desc;";
+    $sql = "select sum(amount) sum, description from Credit where DATE(timestamp) = :date and destination = :destination group by description order by sum desc;";
+    $params = array(':date' => $date, ':destination' => $destination);
   } else {
-    $sql = "select sum(amount) sum, description from Credit where DATE(timestamp) = CURDATE() and destination = '$destination' group by description order by sum desc;";
+    $sql = "select sum(amount) sum, description from Credit where DATE(timestamp) = CURDATE() and destination = :destination group by description order by sum desc;";
+    $params = array(':destination' => $destination);
   }
 // week or date supplied
 // or default to now
 } else if ($type === 'WEEK') {
   $label = 'Weekly ';
   if (isset($week)) {
-    $sql = "select sum(amount) sum, description from Credit where WEEK(timestamp) = $week and destination = '$destination' group by description order by sum desc;";
+    $sql = "select sum(amount) sum, description from Credit where WEEK(timestamp) = :week and destination = :destination group by description order by sum desc;";
+    $params = array(':week' => week, ':destination' => $destination);
   } else if (isset($date)) {
-    $sql = "select sum(amount) sum, description from Credit where WEEK(timestamp) = WEEK('$date') and destination = '$destination' group by description order by sum desc;";
+    $sql = "select sum(amount) sum, description from Credit where WEEK(timestamp) = WEEK(:date) and destination = :destination group by description order by sum desc;";
+    $params = array(':date' => $date, ':destination' => $destination);
   } else {
-    $sql = "select sum(amount) sum, description from Credit where WEEK(timestamp) = WEEK(NOW()) and destination = '$destination' group by description order by sum desc;";
+    $sql = "select sum(amount) sum, description from Credit where WEEK(timestamp) = WEEK(NOW()) and destination = :destination group by description order by sum desc;";
+    $params = array(':destination' => $destination);
   }
 } else {
-  $sql = "select sum(amount) sum, description from Credit where ${type}(timestamp) = ${type}($now) and DATE(timestamp) = $date and destination = '$destination' group by description order by sum desc;";
+  $sql = "select sum(amount) sum, description from Credit where ${type}(timestamp) = ${type}($now) and DATE(timestamp) = :date and destination = :destination group by description order by sum desc;";
+  $params = array(':date' => $date, ':destination' => $destination);
 }
 
 
-$st = $db->query($sql);
-$r = $st->fetchAll(PDO::FETCH_ASSOC);
+$sth = $db->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+$sth->execute($params);
+$r = $sth->fetchAll(PDO::FETCH_ASSOC);
 
 $total = 0;
 for ($i=0; $i < count ($r); $i++) {
