@@ -288,7 +288,7 @@ $('#hourlyTotal').text(hourlyTotal)
 d = new Date()
 var nextWeek = new Date()
 nextWeek.setDate(d.getDate() + 7)
-console.log('nextWeek', nextWeek.ioISOString())
+console.log('nextWeek', nextWeek.toISOString())
 
 </script>
 
