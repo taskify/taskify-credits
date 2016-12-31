@@ -68,6 +68,9 @@ $today = 0;
     background-color: rgb(92,92,92);
     color: white;
   }
+  #nextWeek, #lastWeek {
+    text-decoration: none;
+  }
   </style>
 
   </head>
