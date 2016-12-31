@@ -68,8 +68,10 @@ if ($type === 'HOUR') {
     $params = array(':destination' => $destination);
   }
 } else {
+/*
   $sql = "select sum(amount) sum, description from Credit where ${type}(timestamp) = ${type}($now) and DATE(timestamp) = :date and destination = :destination group by description order by sum desc;";
   $params = array(':date' => $date, ':destination' => $destination);
+*/
 }
 
 
