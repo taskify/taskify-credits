@@ -182,10 +182,10 @@ for ($day = 1; $day<8; $day++) {
             </tbody>
         </table>
         <div id="chart"></div>
-        <p id="copy">← | Credits received |
+        <p id="copy">a id="lastWeek" href="#">←</a> | Credits received |
           <a id="week" href="#">Weekly</a> : <?php echo $week ?> |
           <a id="day" href="#">Daily</a>: <span id="dailyTotal"></span> |
-          <a id="hour" href="#">Hourly</a>: <span id="hourlyTotal"></span> | →
+          <a id="hour" href="#">Hourly</a>: <span id="hourlyTotal"></span> | <a href="#" id="nextWeek">→</a>
         </p>
 
 <script>
@@ -294,6 +294,11 @@ lastWeek.setDate(d.getDate() - 7)
 var lastWeekText = lastWeek.toISOString().substring(0,10)
 console.log('nextWeek', nextWeekText)
 console.log('lastWeek', lastWeekText)
+var nextWeekEl = $('#nextWeek')[0]
+var lastWeekEl = $('#lastWeek')[0]
+nextWeekEl.href = 'calender.php?destination=' + encodeURIComponent(destination) + '&type=DATE&date=' + nextWeekText
+lastWeekEl.href = 'calender.php?destination=' + encodeURIComponent(destination) + '&type=DATE&date=' + lastWeekText
+
 
 </script>
 
