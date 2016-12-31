@@ -17,15 +17,15 @@ $wallet1 = 'https://melvincarvalho.com/wallet/taskify.ttl#this';
 $wallet2 = 'https://melvincarvalho.com/wallet/small.ttl#this';
 
 if (!$date) {
-  $sql = "select sum(amount) total, HOUR(timestamp) hour, DAYOFWEEK(timestamp) day from Credit where destination = '$destination' and currency = '$currency' and wallet in ('$wallet1', '$wallet2')  and DATE_SUB(NOW(),INTERVAL 167 HOUR) <= timestamp group by hour, day order by hour desc";
+  $sql = "select sum(amount) total, HOUR(timestamp) hour, DAYOFWEEK(timestamp) day from Credit where destination = :destination and currency = :currency and wallet in (:wallet1, :wallet2)  and DATE_SUB(NOW(),INTERVAL 167 HOUR) <= timestamp group by hour, day order by hour desc";
 } else {
-  $sql = "select sum(amount) total, HOUR(timestamp) hour, DAYOFWEEK(timestamp) day from Credit where destination = '$destination' and currency = '$currency' and wallet in ('$wallet1', '$wallet2')  and DATE_SUB(STR_TO_DATE('$date', '%Y-%m-%d'),INTERVAL 167 HOUR) <= timestamp and STR_TO_DATE('$date', '%Y-%m-%d') >= timestamp group by hour, day order by hour desc";
+  $sql = "select sum(amount) total, HOUR(timestamp) hour, DAYOFWEEK(timestamp) day from Credit where destination = :destination and currency = :currency and wallet in (:wallet1, :wallet2)  and DATE_SUB(STR_TO_DATE( :date , '%Y-%m-%d'),INTERVAL 167 HOUR) <= timestamp and STR_TO_DATE(:date, '%Y-%m-%d') >= timestamp group by hour, day order by hour desc";
 }
 
 
 error_log($sql);
 
-$params = array();
+$params = array(':destination' => $destination, ':currency' => $currency, ':wallet1' => $wallet1, ':wallet2' => $wallet2, '"date' => $date);
 $sth = $db->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 $sth->execute($params);
 $r = $sth->fetchAll(PDO::FETCH_ASSOC);
