@@ -3,6 +3,7 @@
 // * Copyright 2012 Melvin Carvalho and other contributors; Licensed MIT
 
 require_once('init.php');
+require_once('functions.php');
 header("Access-Control-Allow-Origin: *");
 
 $destination = $_REQUEST['destination'];
@@ -75,9 +76,13 @@ if ($type === 'HOUR') {
 }
 
 
+/*
 $sth = $db->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 $sth->execute($params);
 $r = $sth->fetchAll(PDO::FETCH_ASSOC);
+*/
+
+$r = selectAll($sql, $db, $params);
 
 $total = 0;
 for ($i=0; $i < count ($r); $i++) {
