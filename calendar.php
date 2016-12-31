@@ -217,7 +217,7 @@ var hourlyTotal = 0
 var isHour = true
 var isToday = true
 var dots = $('.d')
-var d = new Date()
+var d = new Date(dateParam)
 var day = d.getUTCDay()
 var hour = d.getUTCHours()
 var now = day * 24 + hour
@@ -268,7 +268,7 @@ console.log('dailyTotal', dailyTotal)
 console.log('dateParam', dateParam)
 
 // days of week
-d = new Date()
+d = new Date(dateParam)
 var days = $('.day')
 for (var i = 0; i < 7; i++) {
   var date = d.toISOString().substring(0,10)
