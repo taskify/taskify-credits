@@ -268,7 +268,7 @@ console.log('dailyTotal', dailyTotal)
 console.log('dateParam', dateParam)
 
 // days of week
-d = new Date(dateParam)
+d = new Date()
 var days = $('.day')
 for (var i = 0; i < 7; i++) {
   var date = d.toISOString().substring(0,10)
@@ -285,7 +285,7 @@ $('#dailyTotal').text(dailyTotal)
 $('#hourlyTotal').text(hourlyTotal)
 
 // forward and back arrows
-d = new Date()
+d = new Date(dateParam)
 var nextWeek = new Date()
 nextWeek.setDate(d.getDate() + 7)
 var nextWeekText = nextWeek.toISOString().substring(0,10)
