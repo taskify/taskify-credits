@@ -221,8 +221,9 @@ var isHour = true
 var isToday = true
 var dots = $('.d')
 var d = new Date()
-var day = d.getUTCDay()
 var hour = d.getUTCHours()
+d = new Date(dateParam)
+var day = d.getUTCDay()
 var now = day * 24 + hour
 var today = dots[now]
 
