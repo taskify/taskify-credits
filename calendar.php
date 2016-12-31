@@ -287,8 +287,8 @@ $('#hourlyTotal').text(hourlyTotal)
 // forward and back arrows
 d = new Date()
 var nextWeek = new Date()
-nextWeek = nextWeek.setDate(d.getDate() + 7)
-console.log('nextWeek', nextWeek)
+nextWeek.setDate(d.getDate() + 7)
+console.log('nextWeek', nextWeek.ioISOString())
 
 </script>
 
