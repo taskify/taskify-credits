@@ -27,7 +27,7 @@ if (!$date) {
 
 
 error_log($sql);
-$r = select($sql, $db, $params);
+$r = selectAll($sql, $db, $params);
 
 /*
 $sth = $db->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
