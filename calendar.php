@@ -293,16 +293,21 @@ $('#hourlyTotal').text(hourlyTotal)
 
 // forward and back arrows
 d = new Date(dateParam)
-var nextWeek = new Date()
+
+var nextWeek = new Date(dateParam)
 nextWeek.setDate(d.getDate() + 7)
 var nextWeekText = nextWeek.toISOString().substring(0,10)
-var lastWeek = new Date()
+
+var lastWeek = new Date(dateParam)
 lastWeek.setDate(d.getDate() - 7)
 var lastWeekText = lastWeek.toISOString().substring(0,10)
+
 console.log('nextWeek', nextWeekText)
 console.log('lastWeek', lastWeekText)
+
 var nextWeekEl = $('#nextWeek')[0]
 var lastWeekEl = $('#lastWeek')[0]
+
 nextWeekEl.href = 'calendar.php?destination=' + encodeURIComponent(destination) + '&type=DATE&date=' + nextWeekText
 lastWeekEl.href = 'calendar.php?destination=' + encodeURIComponent(destination) + '&type=DATE&date=' + lastWeekText
 
